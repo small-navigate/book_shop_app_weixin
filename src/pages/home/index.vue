@@ -15,7 +15,10 @@ export default {
       imgList: []
     }
   },
-  components: { swiperItem, booksItem },
+  components: {
+    swiperItem,
+    booksItem
+  },
   onLoad() {
     this.getSwiper()
     this.getContent()

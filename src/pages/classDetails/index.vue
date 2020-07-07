@@ -1,18 +1,39 @@
 <template>
-  <view>123</view>
+  <view id="details">
+    <scroll-view scroll-x enable-flex class="scroll_nav">
+      <view class="scorll_content">
+        <view
+          v-for="item in cataoryList"
+          :key="item.id"
+          class="scroll_item"
+          :class="[(item.id == query)?'acitve':'']"
+          @click="toClassDetails(item.id)"
+        >{{item.cataory}}</view>
+      </view>
+    </scroll-view>
+    <booksImg :imgList="booksList"></booksImg>
+  </view>
 </template>
 <script>
+import booksImg from '@/components/booksImg'
 export default {
+  components: { booksImg },
   data() {
     return {
       query: '',
-      count: 0
+      count: 0,
+      cataoryList: [],
+      booksList: []
     }
   },
   onLoad(options) {
     this.query = options.id
     console.log(options)
+    this.scrollLeft = (this.query - 1) * 200 + 'rpx'
     this.getCataoryList()
+    this.getList()
+  },
+  onReachBottom() {
     this.getList()
   },
   methods: {
@@ -21,7 +42,8 @@ export default {
       const { data: res } = await this.$http({
         url: '/classification/cataory'
       })
-      console.log(res)
+      this.cataoryList = res.message.data
+      console.log(this.cataoryList)
     },
     //获取分类导航数据
     async getList() {
@@ -29,10 +51,36 @@ export default {
       const { data: res } = await this.$http({
         url: `/classification/${this.query}/${this.count}`
       })
-      console.log(res)
+      this.booksList = [...this.booksList, ...res.message.data]
+      console.log(this.booksList)
+    },
+    toClassDetails(id) {
+      this.query = id
+      this.count = 0
+      this.booksList = []
+      this.getList()
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+.scroll_nav {
+  box-sizing: content-box;
+  height: 60rpx;
+  display: flex;
+  .scorll_content {
+    display: flex;
+    width: 1600rpx;
+    .scroll_item {
+      height: 60rpx;
+      width: 200rpx;
+      line-height: 60rpx;
+      text-align: center;
+      font-weight: 600;
+    }
+    .acitve {
+      color: #d4237a;
+    }
+  }
+}
 </style>
