@@ -1,42 +1,45 @@
 <template>
-	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view>
-			<text class="title">{{title}}</text>
-		</view>
-	</view>
+  <view>
+    <swiperItem :swiperList="swiperList"></swiperItem>
+    <booksItem :imgList="imgList"></booksItem>
+  </view>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				title: 'Hello'
-			}
-		},
-		onLoad() {
+import swiperItem from '@/components/swiperItem'
+import booksItem from '@/components/booksItem'
+export default {
+  data() {
+    return {
+      swiperList: [],
+      imgList: []
+    }
+  },
+  components: { swiperItem, booksItem },
+  onLoad() {
+    this.getSwiper()
+    this.getContent()
+  },
+  methods: {
+    async getSwiper() {
+      const { data: res } = await this.$http({
+        url: '/home/swiper'
+      })
+      this.swiperList = res.message.swiperURL
+    },
+    async getContent() {
+      const { data: res } = await this.$http({
+        url: '/home/content'
+      })
 
-		},
-		methods: {
-
-		}
-	}
+      res.message.homeCataoryList.forEach(v => {
+        v.list.pop()
+      })
+      this.imgList = res.message.homeCataoryList
+      console.log(this.imgList)
+    }
+  }
+}
 </script>
-
-<style>
-	.content {
-		text-align: center;
-		height: 400upx;
-	}
-
-	.logo {
-		height: 200upx;
-		width: 200upx;
-		margin-top: 200upx;
-	}
-
-	.title {
-		font-size: 36upx;
-		color: #8f8f94;
-	}
+<style lang="scss" scoped>
 </style>

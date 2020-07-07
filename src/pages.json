@@ -24,6 +24,11 @@
     "style": {
       "navigationBarTitleText": "我的"
     }
+  }, {
+    "path": "pages/classDetails/index",
+    "style": {
+      "navigationBarTitleText": "分类"
+    }
   }],
   "tabBar": {
     "color": "#cfcfcf",
@@ -59,9 +64,8 @@
     }]
   },
   "globalStyle": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "图书商城",
+    "navigationBarBackgroundColor": "#d4237a"
   }
 }
