@@ -29,6 +29,11 @@
     "style": {
       "navigationBarTitleText": "分类"
     }
+  }, {
+    "path": "pages/books/index",
+    "style": {
+      "navigationBarTitleText": "详情"
+    }
   }],
   "tabBar": {
     "color": "#cfcfcf",

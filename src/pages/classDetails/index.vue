@@ -11,7 +11,7 @@
         >{{item.cataory}}</view>
       </view>
     </scroll-view>
-    <booksImg :imgList="booksList"></booksImg>
+    <booksImg :imgList="booksList" :styles="styles"></booksImg>
   </view>
 </template>
 <script>
@@ -23,13 +23,15 @@ export default {
       query: '',
       count: 0,
       cataoryList: [],
-      booksList: []
+      booksList: [],
+      styles: {
+        width: '33.3%'
+      }
     }
   },
   onLoad(options) {
     this.query = options.id
     console.log(options)
-    this.scrollLeft = (this.query - 1) * 200 + 'rpx'
     this.getCataoryList()
     this.getList()
   },

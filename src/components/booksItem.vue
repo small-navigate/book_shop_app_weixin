@@ -2,12 +2,12 @@
   <view>
     <view class="item" v-for="item in imgList" :key="item.id">
       <view class="item_text">
-        <view @click="changeClick(item.id)" class="album_item">
+        <view @click="toDetails(item.id)" class="album_item">
           <view class="text">{{item.cataory}}</view>
         </view>
       </view>
-      <view class="item_img" >
-        <view class="item_conter" v-for="item2 in item.list" :key="item2.id">
+      <view class="item_img">
+        <view class="item_conter" v-for="item2 in item.list" :key="item2.id"  @click="changeClick(item2.id)">
           <view class="conter_img">
             <image :src="item2.bookimg"></image>
           </view>
@@ -27,9 +27,14 @@ export default {
     imgList: Array
   },
   methods: {
-    changeClick(id) {
+    toDetails(id) {
       uni.navigateTo({
         url: `/pages/classDetails/index?id=${id}`
+      })
+    },
+    changeClick(id) {
+      uni.navigateTo({
+        url: `/pages/books/index?id=${id}`
       })
     }
   }

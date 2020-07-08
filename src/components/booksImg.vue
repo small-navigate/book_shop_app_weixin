@@ -1,7 +1,7 @@
 <template>
   <view>
       <view class="item_img">
-        <view class="item_conter" v-for="item in imgList" :key="item.id">
+        <view class="item_conter" :style="{width:styles.width}" v-for="item in imgList" :key="item.id" @click="changeClick(item.id)">
           <view class="conter_img">
             <image :src="item.bookimg"></image>
           </view>
@@ -17,12 +17,13 @@
 <script>
 export default {
   props: {
-    imgList: Array
+    imgList: Array,
+    styles: Object
   },
   methods: {
     changeClick(id) {
       uni.navigateTo({
-        url: `/pages/classDetails/index?id=${id}`
+        url: `/pages/books/index?id=${id}`
       })
     }
   }
